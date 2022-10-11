@@ -86,7 +86,9 @@ function Map() {
   }, []);
 
   useEffect(() => {
-    fetchPlaces();
+    setTimeout(() => {
+      fetchPlaces();
+    }, 3000);
   }, []);
 
   useEffect(() => {

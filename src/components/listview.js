@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import Map from "./Map";
 import axios from "axios";
 
-function Listview() {
+const Listview = (props) => {
   const [listData, setlistData] = useState([]);
   const [showCard, setShowCard] = useState(false);
 
@@ -21,7 +20,6 @@ function Listview() {
   });
   const myCard = (data) => {
     console.log(data);
-    // e.preventDefault();
     setPopdta(data);
     setShowCard(true);
   };
@@ -30,23 +28,71 @@ function Listview() {
     setShowCard(false);
   };
 
-  const getlistData = async () => {
+  const getlistData = async (channelname, checkChannel) => {
     try {
-      let response = await axios.get(
-        "https://unmaze.blackmeadow-86f5e8cd.eastasia.azurecontainerapps.io/all",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+      let response = "";
+      var j;
+      if (channelname !== "") {
+        console.log("ABC");
+
+        response = await axios.post(
+          "https://unmaze.blackmeadow-86f5e8cd.eastasia.azurecontainerapps.io/dashboard",
+
+          JSON.stringify({
+            channelName: channelname,
+          }),
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+              accept: "application/json",
+            },
+          }
+        );
+        j = response.data;
+        if (checkChannel) {
+          j = j
+            .filter(function (item) {
+              return item.status === "1";
+            })
+            .map(function (a) {
+              return a;
+            });
+        } else {
+          j = j
+            .filter(function (item) {
+              return item.status === "0";
+            })
+            .map(function (e) {
+              return e;
+            });
         }
-      );
+
+        console.log("response", j);
+      } else {
+        console.log("XYZ");
+
+        response = await axios.get(
+          "https://unmaze.blackmeadow-86f5e8cd.eastasia.azurecontainerapps.io/all",
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        j = response.data;
+        j.forEach((object) => {
+          object.status = null;
+        });
+      }
 
       if (response.status === 200) {
         console.log(response.data);
 
         const perChunk = 5; // items per chunk
 
-        const result = response.data.reduce((resultArray, item, index) => {
+        const result = j.reduce((resultArray, item, index) => {
           const chunkIndex = Math.floor(index / perChunk);
 
           if (!resultArray[chunkIndex]) {
@@ -66,59 +112,57 @@ function Listview() {
   };
 
   useEffect(() => {
-    getlistData();
-  }, []);
+    getlistData(props.selectValue, props.switchValue);
+  }, [props.selectValue, props.switchValue]);
+
   const Popup = ({ subdata }) => (
-    <div class="popUp">
-      <div class="popUp-content">
+    <div className="popUp">
+      <div className="popUp-content">
         <>
-          <div class="popUp-heading">
+          <div className="popUp-heading">
             <h2>{subdata.firstname}</h2>
-            <span class="popDown" onClick={myPopup}>
+            <span className="popDown" onClick={myPopup}>
               &times;
             </span>
           </div>
-          <div class="popUp-body">
-            <div class="profile">
+          <div className="popUp-body">
+            <div className="profile">
               <img
                 src={`https://evolutyzblobimages.blob.core.windows.net/unmaze/${subdata.employeeid}.jpg`}
                 alt={`${subdata.employeeid}`}
               />
               <h5>
-                {/* <small>Employee ID:</small> */}
                 <strong>
-                  <i class="fa fa-address-card"></i>
+                  <i className="fa fa-address-card"></i>
 
                   {" " + subdata.employeeid}
                 </strong>
               </h5>
             </div>
-            <div class="infos">
-              <ul class="personal-info">
+            <div className="infos">
+              <ul className="personal-info">
                 <li>
-                  {/* <div class="title"></div> */}
-                  <div class="text">
-                    <i class="fa fa-envelope"></i> 
-                    { "  " + subdata.emailid}
+                  <div className="text">
+                    <i className="fa fa-envelope"></i>
+                    {"  " + subdata.emailid}
                   </div>
                 </li>
                 <li>
-                  {/* <div class="title">Relationship</div> */}
-                  <div class="text">
-                    <i class="fa fa-phone"></i> { "   " + subdata.phonenumber}
+                  <div className="text">
+                    <i className="fa fa-phone"></i>{" "}
+                    {"   " + subdata.phonenumber}
                   </div>
                 </li>
                 <li>
-                  {/* <div class="title">Phone</div> */}
-                  <div class="text">
-                    <i class="fa fa-mobile"></i> { "  " + subdata.phonenumber}
+                  <div className="text">
+                    <i className="fa fa-mobile"></i>{" "}
+                    {"  " + subdata.phonenumber}
                     (Alt)
                   </div>
                 </li>
                 <li>
-                  {/* <div class="title">Phone</div> */}
-                  <div class="text">
-                    <i class="fa fa-archive"></i> { "  " + subdata.roomno}
+                  <div className="text">
+                    <i className="fa fa-archive"></i> {"  " + subdata.roomno}
                   </div>
                 </li>
               </ul>
@@ -130,24 +174,30 @@ function Listview() {
   );
   return (
     <>
-      <div class="emp-grid">
+      <div className="emp-grid">
         {listData.map((data) => (
-          <div class="bordergrid">
+          <div className="bordergrid">
             {data.map((subdata) => (
-              <div class="grid">
+              <div className="grid">
                 <div
-                  class="profile-widget status"
+                  className={
+                    subdata.status === null
+                      ? "profile-widget "
+                      : subdata.status === 1
+                      ? "profile-widget status bg-green"
+                      : "profile-widget status bg-red"
+                  }
                   onClick={() => {
                     myCard(subdata);
                   }}
                 >
-                  <div class="emp-img">
+                  <div className="emp-img">
                     <img
                       src={`https://evolutyzblobimages.blob.core.windows.net/unmaze/${subdata.employeeid}.jpg`}
                       alt={`${subdata.employeeid}`}
                     />
                   </div>
-                  <h4 class="emp-name">{subdata.firstname}</h4>
+                  <h4 className="emp-name">{subdata.firstname}</h4>
                 </div>
               </div>
             ))}
@@ -156,8 +206,7 @@ function Listview() {
       </div>
       {showCard ? <Popup subdata={Popdta} /> : null}
     </>
-   
   );
-}
+};
 
 export default Listview;

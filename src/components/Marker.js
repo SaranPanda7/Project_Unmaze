@@ -106,9 +106,9 @@ const Marker = ({ text, onClick, empid, dta }) => {
             </>
           </div>
         </div>
-       ) : (
+      ) : (
         <></>
-      )} 
+      )}
     </Wrapper>
   );
 };

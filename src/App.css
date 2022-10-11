@@ -1,3 +1,10 @@
+:root {
+  --red: #ff3e8f;
+  --green: #27ec07;
+  --darkRed: #ce0157;
+  --darkGreen: #128400;
+}
+
 .map {
   background-image: url("./bg.png");
   background-repeat: no-repeat;
@@ -28,10 +35,49 @@
   align-items: center;
   color: #fff;
   padding: 0 15px;
-  margin: 15px auto;
+  margin: 35px auto 15px;
 }
 .align-flex > h2 {
   margin: 0px;
+}
+.channel {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.channel > h2 {
+  margin-right: 0.5em;
+}
+.channel > select {
+  display: inline-block;
+  outline: none;
+  height: 30px;
+  padding: 4px 8px;
+  margin: 0 10px;
+  font-size: 14px;
+  line-height: 1;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+  -webkit-transition: border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-transition: border-color ease-in-out 0.15s,
+    -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s,
+    -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s,
+    -webkit-box-shadow ease-in-out 0.15s;
+}
+.toggle-btn {
+  display: flex;
+  align-items: center;
 }
 .toggle-btn > .switch {
   position: relative;
@@ -92,10 +138,12 @@
   border-radius: 20px;
   margin: 0 20px;
   padding: 70px 40px 30px;
+  width: 100%;
+  height: 560px;
 }
 .googleMap > .location {
   width: 100%;
-  height: 350px;
+  height: 550px;
 }
 
 .image1 {
@@ -104,11 +152,6 @@
   border: 1px solid #037873;
   background-color: #037873;
   margin: 0px auto 0px;
-}
-h2 {
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  margin-top: 50px;
 }
 .image2 {
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -177,10 +220,10 @@ h2 {
 }
 .profile-widget > .emp-img {
   border-radius: 50%;
-  height: 60px;
+  height: 65px;
   position: relative;
-  width: 60px;
-  padding: 2px;
+  width: 65px;
+  padding: 1px;
   border: 2px solid #fff;
 }
 .profile-widget.status > .emp-img::before {
@@ -196,7 +239,7 @@ h2 {
   right: 8px;
 }
 .profile-widget > .emp-img > img {
-  width: 100%;
+  width: 60px;
   border-radius: 50%;
   height: 60px;
 }
@@ -360,6 +403,11 @@ ul.personal-info > li > .text {
   }
 }
 @media (max-width: 768px) {
+  .emp-grid > .bordergrid > .grid {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 .emp-grid > .bordergrid:not(:last-child) {
   margin-bottom: 10px;

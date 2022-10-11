@@ -57,22 +57,22 @@ function Map() {
 
   const fetchData = () => {
     fetch
-      .get('http://localhost:5080/list-categories')
+      .get("http://localhost:5080/list-categories")
       .then((response) => {
         const { data } = response;
-        if(response.status === 200){
-            //check the api call is success by stats code 200,201 ...etc
-            setOptionList(data)
-        }else{
-            //error handle section 
+        if (response.status === 200) {
+          //check the api call is success by stats code 200,201 ...etc
+          setOptionList(data);
+        } else {
+          //error handle section
         }
       })
       .catch((error) => console.log(error));
   };
 
-useEffect(()=>{
+  useEffect(() => {
     fetchData();
-},[])
+  }, []);
 
   useEffect(() => {
     fetchPlaces();
@@ -87,7 +87,6 @@ useEffect(()=>{
   if (!markerList || markerList.length === 0) {
     return null;
   }
-
 
   // useEffect(()=>{
   //     fetchData();

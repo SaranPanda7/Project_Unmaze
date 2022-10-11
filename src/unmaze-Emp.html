@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <meta name="description" content="Map - Evolutyz Loyality Program" />
+    <meta
+      name="keywords"
+      content="loyality, UnMaze2022, accounts, profiles, html5, responsive"
+    />
+    <meta name="author" content="Loyalty - UnMaze2022" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>:: UnMaze2022-EMP Dashboard | Evolutyz Loyality Program ::</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/img/icons/Evolutyz-favicon-1-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://adminlte.io/themes/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css"
+    />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <style type="text/css">
+      :root {
+        --red: #ff3e8f;
+        --green: #27ec07;
+        --darkRed: #ce0157;
+        --darkGreen: #128400;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+      }
+      .page-bg {
+        background-image: url(images/bg.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        padding-bottom: 1em;
+        min-height: 100%;
+      }
+      .page-header {
+        display: flex;
+        align-items: center;
+        padding: 1em;
+        justify-content: space-between;
+      }
+      .page-header > img {
+        height: 100px;
+        max-width: 100%;
+      }
+      .page-header > img:first-child {
+        height: 70px;
+      }
+      .page-header > h2 {
+        color: #fff;
+        margin: 0px;
+      }
+      .emp-grid {
+        background-color: rgb(255 255 255 / 25%);
+        border-radius: 15px;
+        margin: auto 1em;
+        padding: 1em;
+      }
+      .emp-grid > .bordergrid {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+      .profile-widget {
+        margin-bottom: 15px;
+        padding: 0 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .profile-widget > .emp-img {
+        border-radius: 50%;
+        height: 60px;
+        position: relative;
+        width: 60px;
+        padding: 2px;
+        border: 2px solid #fff;
+      }
+      .profile-widget.status > .emp-img::before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        height: 7px;
+        width: 7px;
+        line-height: 7px;
+        border-radius: 50%;
+        background-color: #000;
+        top: 0px;
+        right: 8px;
+      }
+      .profile-widget > .emp-img > img {
+        width: 100%;
+        border-radius: 50%;
+        height: 60px;
+      }
+      .profile-widget > .emp-name {
+        background-color: transparent;
+        color: #333;
+        padding: 10px;
+        padding-left: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        flex-grow: 1;
+        margin-left: -15px;
+        border-radius: 0 50px 50px 0;
+      }
+      .profile-widget.bg-red > .emp-img,
+      .profile-widget.bg-red:hover > .emp-img {
+        border-color: var(--red);
+      }
+
+      .profile-widget.bg-red:hover > .emp-name {
+        background-color: var(--red);
+      }
+      .profile-widget.bg-red > .emp-img:before,
+      .profile-widget.bg-red:hover > .emp-img:before {
+        background-color: var(--darkRed);
+      }
+      .profile-widget.bg-green > .emp-img,
+      .profile-widget.bg-green:hover > .emp-img {
+        border-color: var(--green);
+      }
+
+      .profile-widget.bg-green:hover > .emp-name {
+        background-color: var(--green);
+      }
+      .profile-widget.bg-green > .emp-img:before,
+      .profile-widget.bg-green:hover > .emp-img:before {
+        background-color: var(--darkGreen);
+      }
+      .popUp {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .popUp-content {
+        background-color: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        margin: 15% auto;
+        border-radius: 15px;
+        padding: 15px;
+        border: 1px solid #888;
+        width: 300px;
+      }
+
+      .popDown {
+        color: #fff;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        float: right;
+        font-size: 28px;
+        min-width: 28px;
+        text-align: center;
+        line-height: 28px;
+        font-weight: bold;
+      }
+
+      .popDown:hover,
+      .popDown:focus {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .popUp-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .popUp-heading > h2 {
+        margin: auto;
+      }
+
+      .popUp-body {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      .popUp-body > .profile {
+        text-align: center;
+        border-right: 1px solid #ddd;
+        padding: 0 1em;
+      }
+
+      .popUp-body > .profile > h5 {
+        margin: 0px;
+        font-weight: 400;
+        white-space: nowrap;
+      }
+
+      .popUp-body > .profile > img {
+        width: 8rem;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        padding: 4px;
+      }
+
+      .popUp-body > .infos {
+        margin-left: 1.5rem;
+        padding: 0 1em;
+      }
+
+      ul.personal-info {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.personal-info > li {
+        display: flex;
+        align-items: center;
+      }
+      ul.personal-info > li:not(:last-child) {
+        margin-bottom: 10px;
+      }
+      ul.personal-info > li > .title,
+      ul.personal-info > li > .text {
+        flex: 1;
+      }
+      ul.personal-info > li > .title {
+        font-weight: 400;
+      }
+      ul.personal-info > li > .text {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      @media (min-width: 768px) {
+        .popUp-content {
+          width: 40%;
+        }
+        .popUp-body > .infos {
+          flex: 75%;
+        }
+        .emp-grid > .bordergrid > .grid {
+          -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+          max-width: 20%;
+        }
+      }
+      @media (max-width: 768px) {
+      }
+      .emp-grid > .bordergrid:not(:last-child) {
+        margin-bottom: 10px;
+        border-bottom: 1px solid white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-bg">
+      <div class="page-header">
+        <img src="images/white-logo.png" />
+        <h2>Employee Activity Status</h2>
+        <img src="images/Unmaze_logo2022.png" />
+      </div>
+
+      <div class="emp-grid">
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+        <div class="bordergrid">
+          <div class="grid">
+            <div class="profile-widget status" id="myBtn">
+              <div class="emp-img">
+                <img src="images/profile-1.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Srikanth</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget bg-red">
+              <div class="emp-img">
+                <img src="images/profile-2.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Kishore</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-3.png" alt="" />
+              </div>
+              <h4 class="emp-name">Sridhar</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget status bg-green">
+              <div class="emp-img">
+                <img src="images/profile-4.png" alt="" />
+              </div>
+              <h4 class="emp-name">Rajinikant</h4>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="profile-widget">
+              <div class="emp-img">
+                <img src="images/profile-5.jpg" alt="" />
+              </div>
+              <h4 class="emp-name">Naveen</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="myCard" class="popUp">
+      <div class="popUp-content">
+        <div class="popUp-heading">
+          <h2>Srikanth</h2>
+          <span class="popDown">&times;</span>
+        </div>
+        <div class="popUp-body">
+          <div class="profile">
+            <img src="images/profile-1.jpg" />
+            <h5>
+              <small>Employee ID:</small>
+              <strong><i class="fa fa-address-card"></i> EITS1692</strong>
+            </h5>
+          </div>
+          <div class="infos">
+            <ul class="personal-info">
+              <li>
+                <div class="title">Name</div>
+                <div class="text">
+                  <i class="fa fa-envelope"></i> username@evolutyz.com
+                </div>
+              </li>
+              <li>
+                <div class="title">Relationship</div>
+                <div class="text">
+                  <i class="fa fa-phone"></i> +91 9898989898
+                </div>
+              </li>
+              <li>
+                <div class="title">Phone</div>
+                <div class="text">
+                  <i class="fa fa-mobile"></i> +91 9898989898 (Alternative)
+                </div>
+              </li>
+              <li>
+                <div class="title">Phone</div>
+                <div class="text">
+                  <i class="fa fa-archive"></i> Room No : 501
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var card = document.getElementById("myCard");
+      var btn = document.getElementById("myBtn");
+      var span = document.getElementsByClassName("popDown")[0];
+
+      btn.onclick = function () {
+        card.style.display = "block";
+      };
+
+      span.onclick = function () {
+        card.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == card) {
+          card.style.display = "none";
+        }
+      };
+    </script>
+  </body>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script> -->
+</html>

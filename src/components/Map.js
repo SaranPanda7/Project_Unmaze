@@ -150,7 +150,7 @@ function Map() {
           )}
 
           <div className="toggle-btn">
-            <label>{checkedbox ? "Map" : "Grid"} </label>
+            <label>{checkedbox ? "Grid" : "Map"} </label>
             <div className="switch">
               <input
                 type="checkbox"

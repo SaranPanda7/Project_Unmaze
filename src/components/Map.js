@@ -36,15 +36,22 @@ function Map() {
   };
   const channelChange = (b) => {
     //console.log(b);
+    if (b) {
+      document.getElementById("switchValue").style.display = "inline-block";
+    } else {
+      document.getElementById("switchValue").style.display = "none";
+    }
     checkChannel((prevState) => !prevState);
   };
   const selectChange = (v) => {
-    console.log(v);
+    let z = v.split("_").pop();
     if (v !== "0") {
-      document.getElementById("checkSwitch").style.display = "block";
+      document.getElementById("checkSwitch").style.display = "flex";
+      document.getElementById("switchValue").innerText = z;
       setSelected(v);
     } else {
       document.getElementById("checkSwitch").style.display = "none";
+      document.getElementById("switchValue").innerText = "";
     }
   };
 
@@ -107,7 +114,7 @@ function Map() {
       <div className="map">
         <div className="logo-header">
           <img src={require("../images/white-logo.png")} alt="" />
-          <img src={require("../images/Unmaze_logo2022.png")} alt="" />
+          <img src={require("../images/unmaze.png")} alt="" />
         </div>
         <div className="align-flex">
           {checkedbox ? (
@@ -144,6 +151,7 @@ function Map() {
                     />
                     <span></span>
                   </div>
+                  <label id="switchValue" style={{ display: "none",marginLeft:10 }}></label>
                 </div>
               </div>
             </>

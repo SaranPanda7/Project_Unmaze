@@ -51,6 +51,7 @@ function Map() {
   const [markerList, setmarkerList] = useState([]);
 
   const fetchPlaces = async () => {
+    console.log("REFESH PLACES......");
     fetch(
       "https://unmaze.blackmeadow-86f5e8cd.eastasia.azurecontainerapps.io/all"
     )
@@ -88,8 +89,8 @@ function Map() {
   useEffect(() => {
     setTimeout(() => {
       fetchPlaces();
-    }, 3000);
-  }, []);
+    }, 10000);
+  });
 
   useEffect(() => {
     loadGoogleMapScript(() => {

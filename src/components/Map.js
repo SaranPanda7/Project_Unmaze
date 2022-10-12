@@ -192,8 +192,8 @@ function Map() {
                     key: "AIzaSyC4Z5Qz97EWcoCczNn2IcYvaYG0L9pe6Rk",
                     language: "en",
                   }}
-                  defaultCenter={OFFICE_CO_ORDINATES}
-                  center={OFFICE_CO_ORDINATES}
+                  defaultCenter={RESORT_CO_ORDINATES}
+                  center={RESORT_CO_ORDINATES}
                   zoom={15}
                   yesIWantToUseGoogleMapApiInternals
                   onGoogleApiLoaded={({ map, maps }) =>
@@ -205,8 +205,8 @@ function Map() {
                       fillOpacity: 0.15,
                       map,
                       center: {
-                        lat: OFFICE_CO_ORDINATES.lat,
-                        lng: OFFICE_CO_ORDINATES.lng,
+                        lat: RESORT_CO_ORDINATES.lat,
+                        lng: RESORT_CO_ORDINATES.lng,
                       },
                       radius: 1000,
                     })

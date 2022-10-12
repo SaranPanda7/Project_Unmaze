@@ -182,8 +182,8 @@ const Listview = (props) => {
                 <div
                   className={
                     subdata.status === null
-                      ? "profile-widget "
-                      : subdata.status === 1
+                      ? "profile-widget"
+                      : parseInt(subdata.status) === 1
                       ? "profile-widget status bg-green"
                       : "profile-widget status bg-red"
                   }

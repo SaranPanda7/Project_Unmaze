@@ -119,6 +119,8 @@
   left: 4px;
   bottom: 4px;
   transition: 0.4s;
+  cursor: pointer;
+  z-index: 1;
   -webkit-transition: 0.4s;
   background-color: #fff;
 }
@@ -228,6 +230,7 @@
   position: relative;
   width: 65px;
   padding: 1px;
+  cursor: pointer;
   border: 2px solid #fff;
 }
 .profile-widget.status > .emp-img::before {
@@ -250,9 +253,10 @@
 .profile-widget > .emp-name {
   background-color: transparent;
   color: #333;
-  padding: 10px;
+  padding: 5px 15px;
   padding-left: 25px;
   overflow: hidden;
+  cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-top: 0px;
@@ -340,6 +344,7 @@
 
 .popUp-body {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
 }
@@ -394,11 +399,24 @@ ul.personal-info > li > .text {
   overflow: hidden;
 }
 @media (min-width: 768px) {
+  .emp-grid > .bordergrid > .grid {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .popUp-body > .infos {
+    flex: 50%;
+  }
+  .popUp-content {
+    width: 80%;
+  }
+}
+@media (min-width: 1024px) {
   .popUp-content {
     width: 40%;
   }
   .popUp-body > .infos {
-    flex: 75%;
+    flex: 70%;
   }
   .emp-grid > .bordergrid > .grid {
     -ms-flex: 0 0 20%;
@@ -406,26 +424,43 @@ ul.personal-info > li > .text {
     max-width: 20%;
   }
 }
+
 @media (max-width: 768px) {
   .emp-grid > .bordergrid > .grid {
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
   }
+  .popUp-content {
+    width: 95%;
+  }
 }
-@media (max-width:380px) {  
-.logo-header > img:first-child {
-  height: 35px;
+@media (max-width: 480px) {
+  .popUp-body > .profile {
+    border: 0;
+    padding-bottom: 5px;
+    flex: 100%;
+  }
+  .popUp-body > .infos {
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+    flex: 100%;
+  }
 }
-.logo-header > img:last-child {
-  height: 55px;
-}
-.align-flex {
-  flex-direction: column;
-}
-.align-flex > h2, .channel{
-  margin-bottom: 10px;
-}
+@media (max-width: 380px) {
+  .logo-header > img:first-child {
+    height: 35px;
+  }
+  .logo-header > img:last-child {
+    height: 55px;
+  }
+  .align-flex {
+    flex-direction: column;
+  }
+  .align-flex > h2,
+  .channel {
+    margin-bottom: 10px;
+  }
 }
 .emp-grid > .bordergrid:not(:last-child) {
   margin-bottom: 10px;

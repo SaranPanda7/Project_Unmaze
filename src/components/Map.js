@@ -5,6 +5,7 @@ import GoogleMapReact from "google-map-react";
 import Marker from "./Marker";
 
 const GOOGLE_MAP_API_KEY = "AIzaSyC4Z5Qz97EWcoCczNn2IcYvaYG0L9pe6Rk";
+
 const RESORT_CO_ORDINATES = { lat: 15.31944, lng: 73.90257 };
 
 const OFFICE_CO_ORDINATES = { lat: 17.739349299477045, lng: 83.31304490400785 };
@@ -44,10 +45,16 @@ function Map() {
     checkChannel((prevState) => !prevState);
   };
   const selectChange = (v) => {
-    let z = v.split("_").pop();
     if (v !== "0") {
+      let bi = v.substring(0, v.length - 3).replace("_"," ");
+      console.log(bi);
+      var z = function z(str) {
+        return str
+          .toLowerCase()
+          .replace(/[^a-zA-Z]+(.)/g, (m, cha) => cha.toUpperCase());
+      };
       document.getElementById("checkSwitch").style.display = "flex";
-      document.getElementById("switchValue").innerText = z;
+      document.getElementById("switchValue").innerText = z(bi);
       setSelected(v);
     } else {
       document.getElementById("checkSwitch").style.display = "none";
@@ -96,7 +103,7 @@ function Map() {
   useEffect(() => {
     setTimeout(() => {
       fetchPlaces();
-    }, 10000);
+    }, 30000);
   });
 
   useEffect(() => {
@@ -151,7 +158,10 @@ function Map() {
                     />
                     <span></span>
                   </div>
-                  <label id="switchValue" style={{ display: "none",marginLeft:10 }}></label>
+                  <label
+                    id="switchValue"
+                    style={{ display: "none", marginLeft: 10 }}
+                  ></label>
                 </div>
               </div>
             </>
@@ -188,11 +198,11 @@ function Map() {
                   yesIWantToUseGoogleMapApiInternals
                   onGoogleApiLoaded={({ map, maps }) =>
                     new maps.Circle({
-                      strokeColor: "#FF0000",
-                      strokeOpacity: 0.8,
+                      strokeColor: "#000",
+                      strokeOpacity: 0.4,
                       strokeWeight: 2,
-                      fillColor: "#FF0000",
-                      fillOpacity: 0.3,
+                      fillColor: "#000",
+                      fillOpacity: 0.15,
                       map,
                       center: {
                         lat: OFFICE_CO_ORDINATES.lat,

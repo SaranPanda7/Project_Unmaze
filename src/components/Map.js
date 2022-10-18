@@ -46,7 +46,7 @@ function Map() {
   };
   const selectChange = (v) => {
     if (v !== "0") {
-      let bi = v.substring(0, v.length - 3).replace("_"," ");
+      let bi = v.substring(0, v.length - 3).replace("_", " ");
       console.log(bi);
       var z = function z(str) {
         return str
